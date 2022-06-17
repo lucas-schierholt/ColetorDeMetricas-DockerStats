@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  nodered:
+    image: 'nodered/node-red:latest'
+    pull_policy: always
+    container_name: mynodered
+    tty: true 
+    stdin_open: true
+    ports:
+      - '1880:1880'
+    environment:
+      FLOWS: "nodered.json"
+    volumes:
+      - './nodered_data:/data'
+    restart: always
+
+  influxdb:
+    image: 'influxdb:latest'
+    pull_policy: always
+    container_name: influxdb
+    tty: true 
+    stdin_open: true
+    ports:
+      - '8086:8086'
+    volumes:
+      - '/data/influx:/var/lib/influxdb'
+    restart: always
+  
