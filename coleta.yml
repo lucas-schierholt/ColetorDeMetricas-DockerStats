@@ -9,6 +9,10 @@ services:
     stdin_open: true
     ports:
       - '1880:1880'
+    entrypoint: >
+      sh -c "
+      npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production
+      && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
     environment:
       FLOWS: "nodered.json"
     volumes:
@@ -23,7 +27,9 @@ services:
     stdin_open: true
     ports:
       - '8086:8086'
+    enviroment:
+      
     volumes:
-      - '/data/influx:/var/lib/influxdb'
+      - '/data/influx_data:/var/lib/influxdb'
     restart: always
   
