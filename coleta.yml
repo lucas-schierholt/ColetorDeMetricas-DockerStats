@@ -27,9 +27,15 @@ services:
     stdin_open: true
     ports:
       - '8086:8086'
-    enviroment:
-      
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: "admin"
+      DOCKER_INFLUXDB_INIT_PASSWORD: "admin1234"
+      DOCKER_INFLUXDB_INIT_ORG: "UFRGS"
+      DOCKER_INFLUXDB_INIT_BUCKET: "database"
     volumes:
+      - '/data/influx_data:/etc/influxdb2'
       - '/data/influx_data:/var/lib/influxdb'
+      - '/data/influx_data:/var/lib/influxdb2'
     restart: always
   
