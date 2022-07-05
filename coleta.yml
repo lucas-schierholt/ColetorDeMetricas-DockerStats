@@ -17,6 +17,9 @@ services:
       FLOWS: "nodered.json"
     volumes:
       - './nodered_data:/data'
+    networks:
+      coleta:
+        ipv4_address: 10.50.50.1
     restart: always
 
   influxdb:
@@ -28,14 +31,22 @@ services:
     ports:
       - '8086:8086'
     environment:
-      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_MODE: "setup"
       DOCKER_INFLUXDB_INIT_USERNAME: "admin"
       DOCKER_INFLUXDB_INIT_PASSWORD: "admin1234"
       DOCKER_INFLUXDB_INIT_ORG: "UFRGS"
       DOCKER_INFLUXDB_INIT_BUCKET: "database"
     volumes:
-      - '/data/influx_data:/etc/influxdb2'
-      - '/data/influx_data:/var/lib/influxdb'
       - '/data/influx_data:/var/lib/influxdb2'
+      - '/data/influx_data/config:/etc/influxdb2'
+    networks:
+      coleta:
+        ipv4_address: 10.50.50.2
     restart: always
+
+networks:
+  coleta:
+    ipam:
+      config:
+        - subnet: 10.50.50.0/24
   
