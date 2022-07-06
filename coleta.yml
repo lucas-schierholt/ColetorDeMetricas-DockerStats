@@ -19,7 +19,7 @@ services:
       - './nodered_data:/data'
     networks:
       coleta:
-        ipv4_address: 10.50.50.1
+        ipv4_address: 10.50.50.3
     restart: always
 
   influxdb:

@@ -25,7 +25,7 @@
         "usetls": false,
         "tls": "",
         "influxdbVersion": "2.0",
-        "url": "http://10.50.50.2/8086",
+        "url": "http://10.50.50.2:8086",
         "rejectUnauthorized": true
     },
     {
@@ -171,16 +171,16 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
+        "once": true,
         "onceDelay": "1",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 220,
+        "x": 210,
         "y": 160,
         "wires": [
             [
-                "1ab50510a215a262"
+                "43d9c2724cab10d3"
             ]
         ]
     },
@@ -209,13 +209,13 @@
         "method": "GET",
         "ret": "obj",
         "paytoqs": "ignore",
-        "url": "",
+        "url": "http://10.50.50.1:2375/containers/influxdb/stats?stream",
         "tls": "",
         "persist": false,
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 550,
+        "x": 470,
         "y": 160,
         "wires": [
             [
@@ -229,7 +229,7 @@
         "type": "function",
         "z": "17f328fd3cc5f057",
         "name": "Calculate metrics",
-        "func": "var p = msg.payload;\nmsg.payload = [\n    {\n        measurement: msg.payload.name,\n        fields: {\n            used_memory: (p.memory_stats.usage - p.memory_stats.stats.cache),\n            avaible_memory: p.memory_stats.limit,\n            memory_usage_percent: (p.memory_stats.usage - p.memory_stats.stats.cache) / (p.memory_stats.limit) * 100.0 ,\n            cpu_delta: (p.cpu_stats.cpu_usage.total_usage - p.precpu_stats.cpu_usage.total_usage),\n            system_cpu_delta: (p.cpu_stats.system_cpu_usage - p.precpu_stats.system_cpu_usage),\n            number_cpus: p.cpu_stats.online_cpus,\n            cpu_usage_percent: ((p.cpu_stats.cpu_usage.total_usage - p.precpu_stats.cpu_usage.total_usage) / (p.cpu_stats.system_cpu_usage - p.precpu_stats.system_cpu_usage) * p.cpu_stats.online_cpus * 100.0),\n            pids: p.pids_stats.current,\n            //net_io_rxbytes: (p.networks.eth0.rx_bytes + p.networks.eth1.rx_bytes),\n            //net_io_txbytes: (p.networks.eth0.tx_bytes + p.networks.eth1.tx_bytes),\n            block_io_readbytes: p.blkio_stats.io_service_bytes_recursive[0].value,\n            block_io_writebytes: p.blkio_stats.io_service_bytes_recursive[1].value,\n            \n        }\n    }   \n]\n//msg.url = \"http://\"+msg.url+\":8086\";\nreturn msg;\n",
+        "func": "var p = msg.payload;\nmsg.payload = [\n    {\n        measurement: msg.payload.name,\n        fields: {\n            used_memory: (p.memory_stats.usage - p.memory_stats.stats.cache),\n            avaible_memory: p.memory_stats.limit,\n            memory_usage_percent: (p.memory_stats.usage - p.memory_stats.stats.cache) / (p.memory_stats.limit) * 100.0 ,\n            cpu_delta: (p.cpu_stats.cpu_usage.total_usage - p.precpu_stats.cpu_usage.total_usage),\n            system_cpu_delta: (p.cpu_stats.system_cpu_usage - p.precpu_stats.system_cpu_usage),\n            number_cpus: p.cpu_stats.online_cpus,\n            cpu_usage_percent: ((p.cpu_stats.cpu_usage.total_usage - p.precpu_stats.cpu_usage.total_usage) / (p.cpu_stats.system_cpu_usage - p.precpu_stats.system_cpu_usage) * p.cpu_stats.online_cpus * 100.0),\n            pids: p.pids_stats.current,\n            //net_io_rxbytes: (p.networks.eth0.rx_bytes + p.networks.eth1.rx_bytes),\n            //net_io_txbytes: (p.networks.eth0.tx_bytes + p.networks.eth1.tx_bytes),\n            block_io_readbytes: p.blkio_stats.io_service_bytes_recursive[0].value,\n            block_io_writebytes: p.blkio_stats.io_service_bytes_recursive[1].value,\n            \n        }\n    }   \n]\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -270,39 +270,13 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 710,
+        "x": 730,
         "y": 100,
         "wires": []
-    },
-    {
-        "id": "1ab50510a215a262",
-        "type": "change",
-        "z": "17f328fd3cc5f057",
-        "name": "Set IP",
-        "rules": [
-            {
-                "t": "set",
-                "p": "url",
-                "pt": "msg",
-                "to": "http://192.168.122.118:2375/containers/influxdb/stats?stream",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 390,
-        "y": 160,
-        "wires": [
-            [
-                "43d9c2724cab10d3"
-            ]
-        ]
     },
     {
         "id": "b36aa30.3a7276",
@@ -318,8 +292,8 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 930,
-        "y": 160,
+        "x": 590,
+        "y": 80,
         "wires": [
             [
                 "e86aa30808485571",
@@ -348,7 +322,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 710,
+        "x": 250,
         "y": 80,
         "wires": [
             [
@@ -370,8 +344,8 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 930,
-        "y": 400,
+        "x": 590,
+        "y": 320,
         "wires": [
             [
                 "863a480a6aa3c753",
@@ -390,8 +364,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 940,
-        "y": 220,
+        "x": 600,
+        "y": 140,
         "wires": [
             [
                 "3e41d2578c4fa488"
@@ -403,14 +377,14 @@
         "type": "function",
         "z": "01250f521875b5f7",
         "name": "Set New Flow",
-        "func": "var flag = true;\nfor (var i = 2; i < msg.flowName.length; i++){\n        if (msg.flowName[i] == msg.containerName[msg.loop.index]){\n            msg.set = false;    \n            msg.loop.index++;\n            flag = false;\n            msg.teste++;\n            break;\n        }\n}\nif (msg.loop.index != msg.count && flag == true ){\n    msg.teste1++;\n    for (var n = 0; n <= msg.count; n++){\n        if (msg.containerName[msg.loop.index] != msg.flowName[n]){\n            msg.payload.id = Math.random();\n            for (i = 0; i < msg.payload.nodes.length; i++){\n                if (msg.loop.index == 0){\n                    msg.payload.nodes[i].id = msg.payload.nodes[i].id+\"-\"+msg.loop.index;\n                }else{\n                    msg.payload.nodes[i].id = msg.payload.nodes[i].id.replace(/.$/, msg.loop.index);\n                }\n                var lengthWires = msg.payload.nodes[i].wires.length;\n                for (var j = 0; j < lengthWires; j++){\n                    var lengthArray = msg.payload.nodes[i].wires[j].length;\n                    for (var k = 0; k < lengthArray; k++){\n                        if (msg.loop.index == 0){\n                            msg.payload.nodes[i].wires[j][k] = msg.payload.nodes[i].wires[j][k]+\"-\"+msg.loop.index;\n                        }else{\n                            msg.payload.nodes[i].wires[j][k] = msg.payload.nodes[i].wires[j][k].replace(/.$/, msg.loop.index);\n                        }\n                    }\n                }\n            }\n            msg.payload.label = msg.containerName[msg.loop.index]; //contabilizar index 0\n            var containerName = msg.containerName[msg.loop.index]; //contabilizar index 0  \n            msg.payload.nodes[2].url = \"http://192.168.122.118:2375/containers\"+containerName+\"/stats?stream\"; // o indexador 2 é para pegar o nó de http request e trocar a url\n            msg.url = \"http://192.168.122.118:1880/flow\"\n            msg.set = true;\n        }\n    }\n    \n}\nif (msg.loop.index == msg.count){\n    msg.set = 2; // parar o loop\n}\nreturn msg;\n",
+        "func": "msg.payload.nodes[0].repeat = \"1\";\nvar flag = true;\nfor (var i = 2; i < msg.flowName.length; i++){\n        if (msg.flowName[i] == msg.containerName[msg.loop.index]){\n            msg.set = false;    \n            msg.loop.index++;\n            flag = false;\n            break;\n        }\n}\nif (msg.loop.index != msg.count && flag == true ){\n    for (var n = 0; n <= msg.count; n++){\n        if (msg.containerName[msg.loop.index] != msg.flowName[n]){\n            msg.payload.id = Math.random();\n            for (i = 0; i < msg.payload.nodes.length; i++){\n                if (msg.loop.index == 0){\n                    msg.payload.nodes[i].id = msg.payload.nodes[i].id+\"-\"+msg.loop.index;\n                }else{\n                    msg.payload.nodes[i].id = msg.payload.nodes[i].id.replace(/.$/, msg.loop.index);\n                }\n                var lengthWires = msg.payload.nodes[i].wires.length;\n                for (var j = 0; j < lengthWires; j++){\n                    var lengthArray = msg.payload.nodes[i].wires[j].length;\n                    for (var k = 0; k < lengthArray; k++){\n                        if (msg.loop.index == 0){\n                            msg.payload.nodes[i].wires[j][k] = msg.payload.nodes[i].wires[j][k]+\"-\"+msg.loop.index;\n                        }else{\n                            msg.payload.nodes[i].wires[j][k] = msg.payload.nodes[i].wires[j][k].replace(/.$/, msg.loop.index);\n                        }\n                    }\n                }\n            }\n            msg.payload.label = msg.containerName[msg.loop.index]; //contabilizar index 0\n            var containerName = msg.containerName[msg.loop.index]; //contabilizar index 0  \n            msg.payload.nodes[2].url = \"http://10.50.50.1:2375/containers\"+containerName+\"/stats?stream\";\n            msg.url = \"http://10.50.50.3:1880/flow\"\n            msg.set = true;\n        }\n    }\n    \n}\nif (msg.loop.index == msg.count){\n    msg.set = 2; // parar o loop\n}\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 900,
-        "y": 600,
+        "x": 740,
+        "y": 440,
         "wires": [
             [
                 "a4fb49eee28f63be",
@@ -433,8 +407,8 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 900,
-        "y": 680,
+        "x": 820,
+        "y": 540,
         "wires": [
             [
                 "41af39d4e0555052"
@@ -454,8 +428,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1150,
-        "y": 620,
+        "x": 1090,
+        "y": 540,
         "wires": []
     },
     {
@@ -475,8 +449,8 @@
         "limit": "",
         "loopPayload": "loop-keep",
         "finalPayload": "final-last",
-        "x": 910,
-        "y": 460,
+        "x": 570,
+        "y": 380,
         "wires": [
             [],
             [
@@ -498,7 +472,7 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 1610,
+        "x": 1530,
         "y": 80,
         "wires": [
             [
@@ -527,7 +501,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 1370,
+        "x": 1290,
         "y": 80,
         "wires": [
             [
@@ -549,7 +523,7 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 1590,
+        "x": 1510,
         "y": 200,
         "wires": [
             [
@@ -569,7 +543,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1620,
+        "x": 1540,
         "y": 140,
         "wires": [
             [
@@ -588,7 +562,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1580,
+        "x": 1500,
         "y": 340,
         "wires": [
             [
@@ -611,7 +585,7 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 1610,
+        "x": 1530,
         "y": 400,
         "wires": [
             []
@@ -634,7 +608,7 @@
         "limit": "",
         "loopPayload": "loop-keep",
         "finalPayload": "final-last",
-        "x": 1590,
+        "x": 1510,
         "y": 260,
         "wires": [
             [],
@@ -648,7 +622,7 @@
         "type": "debug",
         "z": "01250f521875b5f7",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -656,8 +630,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1170,
-        "y": 520,
+        "x": 1050,
+        "y": 440,
         "wires": []
     },
     {
@@ -673,8 +647,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1230,
-        "y": 400,
+        "x": 890,
+        "y": 320,
         "wires": []
     },
     {
@@ -690,8 +664,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1910,
-        "y": 220,
+        "x": 1830,
+        "y": 200,
         "wires": []
     },
     {
@@ -708,12 +682,12 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 910,
-        "y": 280,
+        "x": 570,
+        "y": 200,
         "wires": [
             [
                 "6a706c45a817596d",
-                "50c874339ec84c2d"
+                "e3fda9eaf51703ac"
             ]
         ]
     },
@@ -722,14 +696,14 @@
         "type": "function",
         "z": "01250f521875b5f7",
         "name": "Flow Names",
-        "func": "var tab = new String(\"tab\");\nvar flowName = new Array();\nfor (var i = 0; i < msg.payload.length; i++){\n    if (msg.payload[i].type == tab){\n        flowName.push(msg.payload[i].label)    \n    }\n}\nmsg.flowName = flowName;\nmsg.set = true;\n\n\n\nmsg.teste = 0;\nmsg.teste1 = 0;\n\nreturn msg;",
+        "func": "var tab = new String(\"tab\");\nvar flowName = new Array();\nfor (var i = 0; i < msg.payload.length; i++){\n    if (msg.payload[i].type == tab){\n        flowName.push(msg.payload[i].label)    \n    }\n}\nmsg.flowName = flowName;\nmsg.set = true;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 890,
-        "y": 340,
+        "x": 550,
+        "y": 260,
         "wires": [
             [
                 "94c03205e95753d2"
@@ -741,7 +715,7 @@
         "type": "debug",
         "z": "01250f521875b5f7",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -749,8 +723,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1230,
-        "y": 160,
+        "x": 890,
+        "y": 80,
         "wires": []
     },
     {
@@ -776,8 +750,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 690,
-        "y": 500,
+        "x": 450,
+        "y": 440,
         "wires": [
             [
                 "863a480a6aa3c753"
@@ -785,9 +759,24 @@
             [
                 "3b06faf82dae5751"
             ],
-            [
-                "a4fb49eee28f63be"
-            ]
+            []
         ]
+    },
+    {
+        "id": "e3fda9eaf51703ac",
+        "type": "debug",
+        "z": "01250f521875b5f7",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 200,
+        "wires": []
     }
 ]
