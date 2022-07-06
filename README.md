@@ -32,7 +32,7 @@ Terá dois flows já setados no Node-Red:
     1. 'Docker Stats': modelo base que realiza a coleta das métricas de um container Docker e armazena no banco de dados do InfluxDB.
     2. 'Create Flows from Active Container': cria flows a partir de dos containers ativos e deleta os mesmos.
 <p align="center">
-    <img src="/tree/main/media/images/nodered-environment.png" />
+    <img src="../tree/main/media/images/nodered-environment.png" />
 </p>
 Ao clicar no nó de inject "Create Flows From Active Containers", o Node-Red acessa a API do Docker e cria os flows com o nome dos containers que estão rodando no Docker. A partir da criação, o monitoramento das métricas já é iniciado e coleta os dados para o InfluxDB. Para parar o monitoramento basta deletar os flows no nó de inject "Delete Flows".
 
@@ -44,6 +44,6 @@ O usuário e senha do InfluxDB foram setados pelas variáveis de ambiente.
 No menu 'Data Explorer' acessar o Bucket 'database' -> no menu '_measurement' escolher um ou mais containers -> no menu '_field' escolher uma ou mais métricas do Docker Stats.
 Ajustar o intervalo de tempo que quer monitorar -> clicar no botão 'submit' para análise do gráfico. Ou então poderá baixar o arquivo com os dados selecionados.
 <p align="center">
-    <img src="./tree/main/media/images/influxdb-environment.png" />
+    <img src="../tree/main/media/images/influxdb-environment.png" />
 </p>
 
