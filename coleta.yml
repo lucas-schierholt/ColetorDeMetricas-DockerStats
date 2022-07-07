@@ -46,6 +46,7 @@ services:
 
 networks:
   coleta:
+    driver: overlay
     ipam:
       config:
         - subnet: 10.50.50.0/24
