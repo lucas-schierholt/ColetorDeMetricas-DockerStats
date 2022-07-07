@@ -36,6 +36,7 @@ services:
       DOCKER_INFLUXDB_INIT_PASSWORD: "admin1234"
       DOCKER_INFLUXDB_INIT_ORG: "UFRGS"
       DOCKER_INFLUXDB_INIT_BUCKET: "database"
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: "admin1234"
     volumes:
       - '/data/influx_data:/var/lib/influxdb2'
       - '/data/influx_data/config:/etc/influxdb2'
@@ -46,7 +47,6 @@ services:
 
 networks:
   coleta:
-    driver: overlay
     ipam:
       config:
         - subnet: 10.50.50.0/24
