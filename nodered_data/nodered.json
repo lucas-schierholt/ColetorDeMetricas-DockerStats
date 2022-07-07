@@ -15,6 +15,48 @@
         "env": []
     },
     {
+        "id": "1e200183eab03e69",
+        "type": "tab",
+        "label": "/influxdb",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a9628b9422e38223",
+        "type": "tab",
+        "label": "/mynodered",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "78df1bafc23d9b8c",
+        "type": "tab",
+        "label": "/romantic_brown",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "339acc5acc184883",
+        "type": "tab",
+        "label": "/focused_sammet",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "eef1fe04eba44373",
+        "type": "tab",
+        "label": "/my-prometheus.1.x16dygwqx09v7jnsc4w7ixhww",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e849ec92d33762f6",
+        "type": "tab",
+        "label": "/portainer",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "5098bf90dbba1fe0",
         "type": "influxdb",
         "hostname": "influx",
@@ -696,13 +738,6 @@
         "wires": []
     },
     {
-        "type": "tab",
-        "label": "/influxdb",
-        "id": "1e200183eab03e69",
-        "info": "",
-        "disabled": false
-    },
-    {
         "id": "e3fc6628635cdb05-0-0-0-0-0-0-0",
         "type": "inject",
         "z": "1e200183eab03e69",
@@ -820,13 +855,6 @@
         "x": 730,
         "y": 100,
         "wires": []
-    },
-    {
-        "type": "tab",
-        "label": "/mynodered",
-        "id": "a9628b9422e38223",
-        "info": "",
-        "disabled": false
     },
     {
         "id": "e3fc6628635cdb05-0-0-0-0-0-0-1",
@@ -948,13 +976,6 @@
         "wires": []
     },
     {
-        "type": "tab",
-        "label": "/romantic_brown",
-        "id": "78df1bafc23d9b8c",
-        "info": "",
-        "disabled": false
-    },
-    {
         "id": "e3fc6628635cdb05-0-0-0-0-0-0-2",
         "type": "inject",
         "z": "78df1bafc23d9b8c",
@@ -1072,13 +1093,6 @@
         "x": 730,
         "y": 100,
         "wires": []
-    },
-    {
-        "type": "tab",
-        "label": "/focused_sammet",
-        "id": "339acc5acc184883",
-        "info": "",
-        "disabled": false
     },
     {
         "id": "e3fc6628635cdb05-0-0-0-0-0-0-3",
@@ -1200,13 +1214,6 @@
         "wires": []
     },
     {
-        "type": "tab",
-        "label": "/my-prometheus.1.x16dygwqx09v7jnsc4w7ixhww",
-        "id": "eef1fe04eba44373",
-        "info": "",
-        "disabled": false
-    },
-    {
         "id": "e3fc6628635cdb05-0-0-0-0-0-0-4",
         "type": "inject",
         "z": "eef1fe04eba44373",
@@ -1324,13 +1331,6 @@
         "x": 730,
         "y": 100,
         "wires": []
-    },
-    {
-        "type": "tab",
-        "label": "/portainer",
-        "id": "e849ec92d33762f6",
-        "info": "",
-        "disabled": false
     },
     {
         "id": "e3fc6628635cdb05-0-0-0-0-0-0-5",
