@@ -29,20 +29,6 @@
         "rejectUnauthorized": true
     },
     {
-        "id": "eeb221fb.ab27f",
-        "type": "influxdb",
-        "hostname": "127.0.0.1",
-        "port": "8086",
-        "protocol": "http",
-        "database": "test",
-        "name": "test",
-        "usetls": true,
-        "tls": "d50d0c9f.31e858",
-        "influxdbVersion": "1.x",
-        "url": "http://localhost:8086",
-        "rejectUnauthorized": true
-    },
-    {
         "id": "d50d0c9f.31e858",
         "type": "tls-config",
         "name": "",
@@ -54,20 +40,6 @@
         "caname": "",
         "servername": "",
         "verifyservercert": false
-    },
-    {
-        "id": "4324fabbef4bc4d5",
-        "type": "influxdb",
-        "hostname": "127.0.0.1",
-        "port": "8086",
-        "protocol": "http",
-        "database": "database",
-        "name": "test 1.8 flux",
-        "usetls": false,
-        "tls": "d50d0c9f.31e858",
-        "influxdbVersion": "1.8-flux",
-        "url": "https://localhost:8086",
-        "rejectUnauthorized": false
     },
     {
         "id": "571a2d2a.81415c",
@@ -92,20 +64,6 @@
         "willPayload": "0"
     },
     {
-        "id": "6ca8bde.9eb2f44",
-        "type": "influxdb",
-        "hostname": "localhost",
-        "port": "8086",
-        "protocol": "https",
-        "database": "new_db",
-        "name": "",
-        "usetls": true,
-        "tls": "f7f39f4e.896ae",
-        "influxdbVersion": "1.x",
-        "url": "",
-        "rejectUnauthorized": false
-    },
-    {
         "id": "f7f39f4e.896ae",
         "type": "tls-config",
         "name": "local-tls",
@@ -116,48 +74,6 @@
         "keyname": "",
         "caname": "",
         "verifyservercert": false
-    },
-    {
-        "id": "7e37766e459f9dc7",
-        "type": "influxdb",
-        "hostname": "127.0.0.1",
-        "port": "8086",
-        "protocol": "http",
-        "database": "database",
-        "name": "",
-        "usetls": false,
-        "tls": "d50d0c9f.31e858",
-        "influxdbVersion": "2.0",
-        "url": "http://192.168.122.118:8086",
-        "rejectUnauthorized": true
-    },
-    {
-        "id": "3c21c77d312561cc",
-        "type": "influxdb",
-        "hostname": "127.0.0.1",
-        "port": "8086",
-        "protocol": "http",
-        "database": "database",
-        "name": "test 1.8 flux",
-        "usetls": false,
-        "tls": "d50d0c9f.31e858",
-        "influxdbVersion": "1.8-flux",
-        "url": "https://localhost:8086",
-        "rejectUnauthorized": false
-    },
-    {
-        "id": "5467711b9410d7b4",
-        "type": "influxdb",
-        "hostname": "127.0.0.1",
-        "port": "8086",
-        "protocol": "http",
-        "database": "database",
-        "name": "",
-        "usetls": false,
-        "tls": "d50d0c9f.31e858",
-        "influxdbVersion": "2.0",
-        "url": "https://localhost:9999",
-        "rejectUnauthorized": false
     },
     {
         "id": "e3fc6628635cdb05",
@@ -317,8 +233,8 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": "",
+        "once": true,
+        "onceDelay": "10",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -377,7 +293,7 @@
         "type": "function",
         "z": "01250f521875b5f7",
         "name": "Set New Flow",
-        "func": "//msg.payload.nodes[0].repeat = \"1\";\nvar flag = true;\nfor (var i = 2; i < msg.flowName.length; i++){\n        if (msg.flowName[i] == msg.containerName[msg.loop.index]){\n            msg.set = false;    \n            msg.loop.index++;\n            flag = false;\n            break;\n        }\n}\nif (msg.loop.index != msg.count && flag == true ){\n    for (var n = 0; n <= msg.count; n++){\n        if (msg.containerName[msg.loop.index] != msg.flowName[n]){\n            msg.payload.id = Math.random();\n            for (i = 0; i < msg.payload.nodes.length; i++){\n                if (msg.loop.index == 0){\n                    msg.payload.nodes[i].id = msg.payload.nodes[i].id+\"-\"+msg.loop.index;\n                }else{\n                    msg.payload.nodes[i].id = msg.payload.nodes[i].id.replace(/.$/, msg.loop.index);\n                }\n                var lengthWires = msg.payload.nodes[i].wires.length;\n                for (var j = 0; j < lengthWires; j++){\n                    var lengthArray = msg.payload.nodes[i].wires[j].length;\n                    for (var k = 0; k < lengthArray; k++){\n                        if (msg.loop.index == 0){\n                            msg.payload.nodes[i].wires[j][k] = msg.payload.nodes[i].wires[j][k]+\"-\"+msg.loop.index;\n                        }else{\n                            msg.payload.nodes[i].wires[j][k] = msg.payload.nodes[i].wires[j][k].replace(/.$/, msg.loop.index);\n                        }\n                    }\n                }\n            }\n            msg.payload.label = msg.containerName[msg.loop.index]; //contabilizar index 0\n            var containerName = msg.containerName[msg.loop.index]; //contabilizar index 0  \n            msg.payload.nodes[2].url = \"http://10.50.50.1:2375/containers\"+containerName+\"/stats?stream\";\n            msg.url = \"http://10.50.50.3:1880/flow\"\n            msg.set = true;\n        }\n    }\n    \n}\nif (msg.loop.index == msg.count){\n    msg.set = 2; // parar o loop\n}\nreturn msg;\n",
+        "func": "msg.payload.nodes[0].repeat = \"1\";\nvar flag = true;\nfor (var i = 2; i < msg.flowName.length; i++){\n        if (msg.flowName[i] == msg.containerName[msg.loop.index]){\n            msg.set = false;    \n            msg.loop.index++;\n            flag = false;\n            break;\n        }\n}\nif (msg.loop.index != msg.count && flag == true ){\n    for (var n = 0; n <= msg.count; n++){\n        if (msg.containerName[msg.loop.index] != msg.flowName[n]){\n            msg.payload.id = Math.random();\n            for (i = 0; i < msg.payload.nodes.length; i++){\n                if (msg.loop.index == 0){\n                    msg.payload.nodes[i].id = msg.payload.nodes[i].id+\"-\"+msg.loop.index;\n                }else{\n                    msg.payload.nodes[i].id = msg.payload.nodes[i].id.replace(/.$/, msg.loop.index);\n                }\n                var lengthWires = msg.payload.nodes[i].wires.length;\n                for (var j = 0; j < lengthWires; j++){\n                    var lengthArray = msg.payload.nodes[i].wires[j].length;\n                    for (var k = 0; k < lengthArray; k++){\n                        if (msg.loop.index == 0){\n                            msg.payload.nodes[i].wires[j][k] = msg.payload.nodes[i].wires[j][k]+\"-\"+msg.loop.index;\n                        }else{\n                            msg.payload.nodes[i].wires[j][k] = msg.payload.nodes[i].wires[j][k].replace(/.$/, msg.loop.index);\n                        }\n                    }\n                }\n            }\n            msg.payload.label = msg.containerName[msg.loop.index]; //contabilizar index 0\n            var containerName = msg.containerName[msg.loop.index]; //contabilizar index 0  \n            msg.payload.nodes[2].url = \"http://10.50.50.1:2375/containers\"+containerName+\"/stats?stream\";\n            msg.url = \"http://10.50.50.3:1880/flow\"\n            msg.set = true;\n        }\n    }\n    \n}\nif (msg.loop.index == msg.count){\n    msg.set = 2; // parar o loop\n}\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
