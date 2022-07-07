@@ -38,8 +38,8 @@ services:
       DOCKER_INFLUXDB_INIT_BUCKET: "database"
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: "admin1234"
     volumes:
-      - '/data/influx_data:/var/lib/influxdb2'
-      - '/data/influx_data/config:/etc/influxdb2'
+      - '/data/influxdb/data:/var/lib/influxdb2'
+      - '/data/influxdb/config:/etc/influxdb2'
     networks:
       coleta:
         ipv4_address: 10.50.50.2
