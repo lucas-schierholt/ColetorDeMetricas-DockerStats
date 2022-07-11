@@ -45,9 +45,25 @@ services:
         ipv4_address: 10.50.50.2
     restart: always
 
+  grafana:
+    image: 'grafana/grafana:latest'
+    pull_policy: always
+    container_name: grafana
+    tty: true 
+    stdin_open: true
+    ports:
+      - '3000:3000'
+    volumes:
+      - '/data/grafana/data:/var/lib/grafana'
+    networks:
+      coleta:
+        ipv4_address: 10.50.50.4
+    restart: always    
+
 networks:
   coleta:
     ipam:
       config:
         - subnet: 10.50.50.0/24
+        - gateway: 10.50.50.1
   
