@@ -1,0 +1,9 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!nodered.json
+!nodered_cred.json
+!package.json
+!settings.js
